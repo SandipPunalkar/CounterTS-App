@@ -1,11 +1,9 @@
 import React, { Component } from "react";
+import CounterTypes from "../modules/counterTypes";
 import Counter from "./Counter";
 
 interface CountersProps {}
-type CounterTypes = {
-  id: number;
-  value: number;
-};
+
 interface CountersState {
   counters: CounterTypes[];
 }
@@ -22,8 +20,9 @@ class Counters extends React.Component<CountersProps, CountersState> {
       ],
     };
   }
-  private handleDelete = () => {
-    console.log("Event Handler Called");
+  private handleDelete = (counterId: number) => {
+    const counters = this.state.counters.filter((c) => c.id !== counterId);
+    this.setState({ counters });
   };
 
   render() {
@@ -32,8 +31,7 @@ class Counters extends React.Component<CountersProps, CountersState> {
         {this.state.counters.map((counter) => (
           <Counter
             key={counter.id}
-            value={counter.value}
-            id={counter.id}
+            counter={counter}
             onDelete={this.handleDelete}
           />
         ))}
