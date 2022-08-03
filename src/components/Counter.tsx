@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { JsxElement } from "typescript";
 
-interface CounterProps {}
+interface CounterProps {
+  value: number;
+}
 
 interface CounterState {
   count: number;
@@ -10,7 +11,7 @@ interface CounterState {
 class Counter extends Component<CounterProps, CounterState> {
   constructor(props: CounterProps) {
     super(props);
-    this.state = { count: 0 };
+    this.state = { count: props.value };
   }
   private handleIncrement = (id: number) => {
     this.setState({ count: this.state.count + 1 });
@@ -30,7 +31,7 @@ class Counter extends Component<CounterProps, CounterState> {
     );
   }
   private getBadgeClasses() {
-    let classess = "badge m-2 badge-";
+    let classess = "badge m-2 text-bg-";
     classess += this.state.count === 0 ? "warning" : "primary";
     return classess;
   }
