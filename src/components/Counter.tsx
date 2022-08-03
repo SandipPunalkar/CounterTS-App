@@ -5,31 +5,26 @@ interface CounterProps {}
 
 interface CounterState {
   count: number;
-  tags: string[];
 }
 
 class Counter extends Component<CounterProps, CounterState> {
   constructor(props: CounterProps) {
     super(props);
-    this.state = { count: 0, tags: ["tag1", "tag2", "tag3"] };
+    this.state = { count: 0 };
   }
-  private renderTags() {
-    if (this.state.tags.length === 0) return <p>Ther are no tags!</p>;
-    return (
-      <ul>
-        {this.state.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    );
-  }
+  private handleIncrement = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
   render() {
     return (
       <div>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button className="btn btn-secondary btn-sm">Increment</button>
-        {this.state.tags.length === 0 && <p>Please create a new Tags!</p>}
-        {this.renderTags()}
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-secondary btn-sm"
+        >
+          Increment
+        </button>
       </div>
     );
   }
