@@ -12,15 +12,16 @@ class Counter extends Component<CounterProps, CounterState> {
     super(props);
     this.state = { count: 0 };
   }
-  private handleIncrement = () => {
+  private handleIncrement = (id: number) => {
     this.setState({ count: this.state.count + 1 });
+    console.log(id);
   };
   render() {
     return (
       <div>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
-          onClick={this.handleIncrement}
+          onClick={() => this.handleIncrement(10)}
           className="btn btn-secondary btn-sm"
         >
           Increment
