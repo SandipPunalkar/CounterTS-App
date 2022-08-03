@@ -7,10 +7,16 @@ interface CounterProps {
   // value: number;
   //children: React.ReactNode;
   onIncrement: (counter: CounterTypes) => void;
+  onDecrement: (counter: CounterTypes) => void;
   onDelete: (counterId: number) => void;
 }
 
-function Counter({ counter, onIncrement, onDelete }: CounterProps) {
+function Counter({
+  counter,
+  onIncrement,
+  onDecrement,
+  onDelete,
+}: CounterProps) {
   const getBadgeClasses = () => {
     let classess = "badge m-2 text-bg-";
     classess += counter.value === 0 ? "warning" : "primary";
@@ -22,20 +28,31 @@ function Counter({ counter, onIncrement, onDelete }: CounterProps) {
     return value === 0 ? "Zero" : value;
   };
   return (
-    <div>
-      <span className={getBadgeClasses()}>{formatCount()}</span>
-      <button
-        onClick={() => onIncrement(counter)}
-        className="btn btn-secondary btn-sm"
-      >
-        Increment
-      </button>
-      <button
-        onClick={() => onDelete(counter.id)}
-        className="btn btn-danger btn-sm m-2"
-      >
-        Delete
-      </button>
+    <div className="row">
+      <div className="col-1">
+        <span className={getBadgeClasses()}>{formatCount()}</span>
+      </div>
+      <div className="col">
+        <button
+          onClick={() => onIncrement(counter)}
+          className="btn btn-secondary btn-sm"
+        >
+          +
+        </button>
+        <button
+          onClick={() => onDecrement(counter)}
+          className="btn btn-secondary btn-sm m-2"
+          disabled={counter.value === 0 ? true : false}
+        >
+          -
+        </button>
+        <button
+          onClick={() => onDelete(counter.id)}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }
