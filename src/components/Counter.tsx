@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import CounterTypes from "../modules/counterTypes";
 
 interface CounterProps {
@@ -10,45 +10,34 @@ interface CounterProps {
   onDelete: (counterId: number) => void;
 }
 
-interface CounterState {
-  //count: number;
-}
-
-class Counter extends Component<CounterProps, CounterState> {
-  constructor(props: CounterProps) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>
-        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm"
-        >
-          Increment
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger btn-sm m-2"
-        >
-          Delete
-        </button>
-      </div>
-    );
-  }
-  private getBadgeClasses() {
+function Counter({ counter, onIncrement, onDelete }: CounterProps) {
+  const getBadgeClasses = () => {
     let classess = "badge m-2 text-bg-";
-    classess += this.props.counter.value === 0 ? "warning" : "primary";
+    classess += counter.value === 0 ? "warning" : "primary";
     return classess;
-  }
+  };
 
-  private formatCount() {
-    const { value } = this.props.counter;
+  const formatCount = () => {
+    const { value } = counter;
     return value === 0 ? "Zero" : value;
-  }
+  };
+  return (
+    <div>
+      <span className={getBadgeClasses()}>{formatCount()}</span>
+      <button
+        onClick={() => onIncrement(counter)}
+        className="btn btn-secondary btn-sm"
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => onDelete(counter.id)}
+        className="btn btn-danger btn-sm m-2"
+      >
+        Delete
+      </button>
+    </div>
+  );
 }
 
 export default Counter;
