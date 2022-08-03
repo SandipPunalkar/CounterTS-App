@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 interface CounterProps {
+  id: number;
   value: number;
+  children: React.ReactNode;
 }
 
 interface CounterState {
@@ -20,6 +22,7 @@ class Counter extends Component<CounterProps, CounterState> {
   render() {
     return (
       <div>
+        {this.props.children}
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
           onClick={() => this.handleIncrement(10)}
