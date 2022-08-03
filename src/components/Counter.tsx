@@ -3,7 +3,8 @@ import React, { Component } from "react";
 interface CounterProps {
   id: number;
   value: number;
-  children: React.ReactNode;
+  //children: React.ReactNode;
+  onDelete: () => void;
 }
 
 interface CounterState {
@@ -15,20 +16,25 @@ class Counter extends Component<CounterProps, CounterState> {
     super(props);
     this.state = { count: props.value };
   }
-  private handleIncrement = (id: number) => {
+  private handleIncrement = () => {
     this.setState({ count: this.state.count + 1 });
-    console.log(id);
   };
+
   render() {
     return (
       <div>
-        {this.props.children}
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
-          onClick={() => this.handleIncrement(10)}
+          onClick={this.handleIncrement}
           className="btn btn-secondary btn-sm"
         >
           Increment
+        </button>
+        <button
+          onClick={this.props.onDelete}
+          className="btn btn-danger btn-sm m-2"
+        >
+          Delete
         </button>
       </div>
     );
